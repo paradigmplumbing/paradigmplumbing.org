@@ -1,2 +1,239 @@
-# paradigmplumbing.org
-plumbing website
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paradigm Plumbing Partners LLC</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- RESET ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Roboto', sans-serif; color: #f3f3f3; background: #0a183c; scroll-behavior: smooth; }
+
+/* ---------- HEADER ---------- */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.3);
+    transition: background 0.3s;
+    z-index: 1000;
+}
+header.scrolled { background: rgba(0,0,0,0.85); }
+nav { max-width: 1200px; margin: auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+nav .logo { display: flex; align-items: center; gap: 0.5rem; }
+nav .logo img { height: 50px; }
+nav h1 { color: #00bfff; font-size: 1.6rem; font-weight: 700; }
+nav ul { list-style: none; display: flex; gap: 1.5rem; }
+nav ul li a { color: #f3f3f3; text-decoration: none; font-weight: 500; transition: 0.3s; }
+nav ul li a:hover { color: #00bfff; }
+
+/* ---------- HERO ---------- */
+.hero {
+    height: 100vh;
+    background: url('https://images.unsplash.com/photo-1581092795363-15e1d9f02a08?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+.hero::after {
+    content: "";
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: blueviolet(7, 27, 119, 0.6);
+}
+.hero h2, .hero p, .hero .btn {
+    position: relative;
+    z-index: 1;
+}
+.hero h2 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: #00bfff; text-shadow: 0 4px 10px rgba(0,0,0,0.7); opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+.hero p { font-size: 1.25rem; max-width: 700px; margin-bottom: 2rem; color: #e0f0ff; text-shadow: 0 2px 6px rgba(0,0,0,0.5); opacity: 0; transform: translateY(30px); transition: all 1s ease 0.3s; }
+.hero .btn {
+    padding: 1rem 2rem;
+    background: #00bfff;
+    color: #0b1e3d;
+    font-weight: 700;
+    border-radius: 6px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,191,255,0.5);
+    transition: 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+}
+.hero .btn:hover { background: #033b74; transform: scale(1.05); }
+
+/* ---------- SECTIONS ---------- */
+section { padding: 7rem 1.5rem 3rem; max-width: 1200px; margin: auto; }
+section h3 { font-size: 2.2rem; color: #00bfff; text-align: center; margin-bottom: 2rem; }
+section p { font-size: 1rem; color: #e0e8ff; line-height: 1.6; }
+
+/* ---------- SERVICES ---------- */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.service-card {
+    background: rgba(20,44,105,0.85);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+}
+.service-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 8px 25px rgba(10, 92, 119, 0.5); }
+.service-card h4 { font-size: 1.5rem; margin-bottom: 0.8rem; color: #00bfff; }
+.service-card p { font-size: 1rem; color: #d6e4ff; }
+
+/* ---------- ABOUT ---------- */
+#about { background: blueviolet(14, 28, 109, 0.6); border-radius: 10px; }
+.about { padding: 2rem; opacity: 0; transform: translateY(30px); line-height: 1.7; }
+
+/* ---------- CONTACT ---------- */
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; color: #32c3dd; }
+.contact-info div { margin-bottom: 1rem; }
+.contact form { display: flex; flex-direction: column; gap: 1rem; }
+.contact form input, .contact form textarea { padding: 0.75rem; border-radius: 5px; border: none; }
+.contact form button {
+    padding: 0.75rem;
+    background: #00bfff;
+    color: #0b1e3d;
+    font-weight: bold;
+    border: 2px solid #00bfff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.contact form button:hover { background: #1e90ff; }
+
+/* ---------- FOOTER ---------- */
+footer { text-align: center; padding: 2rem 1rem; color: #888; border-top: 1px solid #1a3b6e; margin-top: 3rem; }
+footer a { color: #00bfff; text-decoration: none; transition: 0.3s; }
+footer a:hover { color: #1e90ff; }
+
+/* ---------- ANIMATION ---------- */
+.fade-in { opacity: 1 !important; transform: translateY(0px) !important; }
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+    nav ul { display:none; }
+    .contact { grid-template-columns: 1fr; }
+    .hero h2 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+    <div class="logo">
+        <img src="https://img.icons8.com/ios-filled/50/00bfff/wrench.png" alt="Plumbing Logo">
+        <h1>Paradigm Plumbing Partners LLC</h1>
+    </div>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+</header>
+
+<section class="hero" id="home">
+    <h2>Reliable Plumbing Services in Texas</h2>
+    <p>We protect the health and safety of Texas citizens by keeping water and medical gases clean and contaminant-free.</p>
+    <a href="#contact" class="btn">Contact Us</a>
+</section>
+
+<section id="services">
+<h3>Our Services</h3>
+<div class="services">
+    <div class="service-card">
+        <h4>🔧 Commercial</h4>
+        <p>Ground-up construction and tenant improvements for commercial spaces. Full service repair solutions.</p>
+    </div>
+    <div class="service-card">
+        <h4>🏠 Residential</h4>
+        <p>Custom homes, ADUs, remodels, water heaters, faucets, and fixture installation.</p>
+    </div>
+    <div class="service-card">
+        <h4>🛠 Memberships</h4>
+        <p>Yearly preventative inspections to avoid costly plumbing failures.</p>
+    </div>
+    <div class="service-card">
+        <h4>💰 Financing</h4>
+        <p>Flexible financing options to help manage plumbing investments.</p>
+    </div>
+</div>
+</section>
+
+<section id="about">
+<h3>About Us</h3>
+<div class="about">
+<p><strong>Jose Salazar</strong> – Project Manager / Estimator<br>
+<strong>Adriana Rea-Salazar</strong> – Project Manager / Coordinator<br>
+RMP-44391</p>
+<p>Established 2022 with over 20 years of construction experience and 10+ years plumbing expertise. Licensed, transparent, fast-response plumbing services with long-term client relationships.</p>
+</div>
+</section>
+
+<section id="contact">
+<h3>Contact</h3>
+<div class="contact">
+    <div class="contact-info">
+        <div>📞 512-538-7628</div>
+        <div>📧 <a href="mailto:jose@paradigmplumbing.org">jose@paradigmplumbing.org</a></div>
+        <div>📍 Austin, TX</div>
+    </div>
+    <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</div>
+</section>
+
+<footer>
+<div>
+    <a href="https://www.facebook.com/profile.php?id=100088681701757" target="_blank">👍 Facebook</a> |
+    <a href="https://www.instagram.com/Jmsales87" target="_blank">📸 Instagram</a>
+</div>
+<div style="margin-top:1rem; color:#cfd8ff;">
+<p>Texas State Board of Plumbing Examiners<br>
+P.O. Box 4200 Austin, Texas 78765-4200<br>
+800-845-6584 www.tsbpe.state.tx.us</p>
+</div>
+<div style="margin-top:1rem; color:#999;">© <span id="year"></span> Paradigm Plumbing Partners LLC — All Rights Reserved</div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Fade-in animation
+const faders = document.querySelectorAll('.hero h2, .hero p, .hero .btn, .service-card, .about');
+const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('fade-in');
+            observer.unobserve(entry.target);
+        }
+    });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
+
+// Header background change on scroll
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if(window.scrollY > 50) { header.classList.add('scrolled'); }
+    else { header.classList.remove('scrolled'); }
+});
+</script>
+
+</body>
+</html>
